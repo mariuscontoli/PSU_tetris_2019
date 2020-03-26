@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2020
+** main.c
+** File description:
+** main source file
+*/
+
 #include "../include/tetris.h"
 
 void get_spec(tetris_t *tetris, char *buffer)
@@ -60,7 +67,20 @@ void get_name(tetris_t *tetris)
     tetris->name = temp; 
 }
 
-void print_tetriminos(tetris_t *tetris)
+void assign_keys(tetris_t *tetris)
+{
+    my_printf("Key Left :  ^EOD\n");
+    my_printf("Key Right :  ^EOC\n");
+    my_printf("Key Turn :  (space)\n");
+    my_printf("Key Drop :  x\n");
+    my_printf("Key Quit :  q\n");
+    my_printf("Key Pause :  p\n");
+    my_printf("Next :  Yes\n");
+    my_printf("Level :  1\n");
+    my_printf("Size :  20*10\n");
+}
+
+void print_tetriminos(tetris_t *tetris, node_t *temp)
 {
     int fd;
     char *tetri;
@@ -80,7 +100,7 @@ void print_tetriminos(tetris_t *tetris)
 
 void print_debug(tetris_t *tetris)
 {
-    head_t *l_a = NULL;
+    assign_keys(tetris);
     struct dirent *lecture;
     DIR *dir;
     struct stat st;
@@ -96,9 +116,9 @@ void print_debug(tetris_t *tetris)
         my_strcpy2(tempo, test);
         my_strcat2(tempo, temp->data);
         tetris->nome = tempo;
-    
+        temp->data = tempo;
         get_name(tetris);
-        print_tetriminos(tetris);
+        print_tetriminos(tetris, temp);
         temp = temp->next;
     }
 }

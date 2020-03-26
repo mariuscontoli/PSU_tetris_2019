@@ -39,6 +39,16 @@ typedef struct tetris {
     int height;
     int weight;
     int color;
+    char *key_left;
+    char *key_right;
+    char *key_turn;
+    char *key_drop;
+    char *key_quit;
+    char *key_pause;
+    int level;
+    char *next;
+    int size_x;
+    int size_y;
 } tetris_t;
 
 int my_getnbr(char *str);
