@@ -103,7 +103,7 @@ void print_tetriminos(tetris_t *tetris, node_t *temp)
     if (tetri[0] <= 122 && tetri[0] >= 97) {
         my_printf("Tetriminos : Name %s : Error\n", tetris->name);
     } else {
-        my_printf("Tetriminos : Name %s : Size %dx%d : Color %d :\n", tetris->name, tetris->weight, tetris->height, tetris->color);
+        my_printf("Tetriminos : Name %s : Size %d*%d : Color %d :\n", tetris->name, tetris->weight, tetris->height, tetris->color);
         display_tetri(tetri);
     }
 }
