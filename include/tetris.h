@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <string.h>
+#include <signal.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <time.h>
@@ -39,6 +40,7 @@ typedef struct tetris {
     int height;
     int weight;
     int color;
+    int number;
     char *key_left;
     char *key_right;
     char *key_turn;

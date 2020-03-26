@@ -76,17 +76,18 @@ void get_name(tetris_t *tetris)
     tetris->name = temp; 
 }
 
-void assign_keys(tetris_t *tetris)
+void disp_keys(tetris_t *tetris)
 {
-    my_printf("Key Left :  ^EOD\n");
-    my_printf("Key Right :  ^EOC\n");
-    my_printf("Key Turn :  (space)\n");
-    my_printf("Key Drop :  x\n");
-    my_printf("Key Quit :  q\n");
-    my_printf("Key Pause :  p\n");
-    my_printf("Next :  Yes\n");
-    my_printf("Level :  1\n");
-    my_printf("Size :  20*10\n");
+    my_printf("Key Left :  %s\n", tetris->key_left);
+    my_printf("Key Right :  %S\n", tetris->key_right);
+    my_printf("Key Turn :  %s\n", tetris->key_turn);
+    my_printf("Key Drop :  %s\n", tetris->key_drop);
+    my_printf("Key Quit :  %s\n", tetris->key_quit);
+    my_printf("Key Pause :  %s\n", tetris->key_pause);
+    my_printf("Next :  %s\n", tetris->next);
+    my_printf("Level :  %d\n", tetris->level);
+    my_printf("Size :  %d*%d\n", tetris->size_y, tetris->size_x);
+    my_printf("Tetriminos : %d\n", tetris->number);
 }
 
 void print_tetriminos(tetris_t *tetris, node_t *temp)
@@ -132,10 +133,44 @@ void print_debug(tetris_t *tetris)
     }
 }
 
+void init_tetris(tetris_t *tetris)
+{
+    tetris->key_right = my_strdup("^EOC");
+    tetris->key_left = my_strdup("^EOD");
+    tetris->key_drop = my_strdup("^EOA");
+    tetris->key_turn = my_strdup("^EOB");
+    tetris->key_pause = my_strdup("p");
+    tetris->key_quit = my_strdup("q");
+    tetris->size_y = 20;
+    tetris->size_x = 10;
+    tetris->next = my_strdup("Yes");
+    tetris->level = 1;
+    tetris->number = how_many_tetri();
+}
+
+int how_many_tetri(void)
+{
+    DIR *dir;
+    struct dirent *lecture;
+    int i = 0;
+
+    dir = opendir("tetriminos/");
+    while ((lecture = readdir(dir)) != NULL) {
+        if (lecture->d_type == DT_REG) {
+            i++;
+        }
+    }
+    return i;
+}
+
 void debug(tetris_t *tetris, int ac, char **av)
 {
+    DIR *dir;
+    struct dirent *lecture;
+    char **names;
+    init_tetris(tetris);
     my_printf("*** DEBUG MODE ***\n");
-    assign_keys(tetris);
+    disp_keys(tetris);
     print_debug(tetris);
     my_printf("Press any key to start Tetris\n");
 }
