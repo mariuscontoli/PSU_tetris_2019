@@ -61,8 +61,17 @@ char *my_strnto_name(char *dest);
 int my_strlen2(char const *str);
 int my_strlen(char const *str);
 int my_strcmp(char const *s1, char const *s2);
-
-
-head_t *get_n_node(char *x, head_t *l_a);
+void debug(tetris_t *tetris, int ac, char **av);
+void init_tetris(tetris_t *tetris);
+void disp_keys(tetris_t *tetris);
+void print_debug(tetris_t *tetris);
+void print_tetriminos(tetris_t *tetris, int index);
+void get_name(tetris_t *tetris, int index);
+void get_spec(tetris_t *tetris, char *buffer);
+int how_many_tetri(void);
+void sort_by_alpha(char **paths, int line);
+char *my_strcat2(char *dest, char const *src);
+void display_tetri(char *buffer);
+void display_help(char *string);
 
 #endif /* !NAVY_H_ */
