@@ -18,6 +18,15 @@ void get_spec(tetris_t *tetris, char *buffer)
     }
 }
 
+void display_tetri(char *buffer)
+{
+    int i, j = 0;
+    for (i = 0; buffer[i] != '\n'; i++);
+    for (j = i + 1; buffer[j] != '\0'; j++) {
+        my_printf("%c", buffer[j]);
+    }
+}
+
 char *my_strcpy2(char *dest, char const *src)
 {
     int i = 0;
@@ -95,12 +104,12 @@ void print_tetriminos(tetris_t *tetris, node_t *temp)
         my_printf("Tetriminos : Name %s : Error\n", tetris->name);
     } else {
         my_printf("Tetriminos : Name %s : Size %dx%d : Color %d :\n", tetris->name, tetris->weight, tetris->height, tetris->color);
+        display_tetri(tetri);
     }
 }
 
 void print_debug(tetris_t *tetris)
 {
-    assign_keys(tetris);
     struct dirent *lecture;
     DIR *dir;
     struct stat st;
@@ -126,7 +135,9 @@ void print_debug(tetris_t *tetris)
 void debug(tetris_t *tetris, int ac, char **av)
 {
     my_printf("*** DEBUG MODE ***\n");
+    assign_keys(tetris);
     print_debug(tetris);
+    my_printf("Press any key to start Tetris\n");
 }
 
 int main(int ac, char *argv[])
