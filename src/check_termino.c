@@ -63,13 +63,13 @@ char *my_strcpy(char const *src)
     return (dest);
 }
 
-void get_name(tetris_t *tetris)
+void get_name(tetris_t *tetris, int index)
 {
     char *temp = malloc(sizeof(char) * 20);
     int i = 0;
     int j = 11;
-    for (; tetris->nome[j] != '.'; j++) {
-        temp[i] = tetris->nome[j];
+    for (; tetris->paths[index][j] != '.'; j++) {
+        temp[i] = tetris->paths[index][j];
         i++;
     }
     temp[i] = '\0';
@@ -90,14 +90,14 @@ void disp_keys(tetris_t *tetris)
     my_printf("Tetriminos : %d\n", tetris->number);
 }
 
-void print_tetriminos(tetris_t *tetris, node_t *temp)
+void print_tetriminos(tetris_t *tetris, int index)
 {
     int fd;
     char *tetri;
     struct stat off_t;
-    if ((fd = open(tetris->nome, O_RDONLY)) < 0)
+    if ((fd = open(tetris->paths[index], O_RDONLY)) < 0)
         return NULL;
-    stat(tetris->nome, &off_t);
+    stat(tetris->paths[index], &off_t);
     tetri = malloc(sizeof(char) * (off_t.st_size + 1));
     read(fd, tetri, off_t.st_size);
     get_spec(tetris, tetri);
@@ -109,27 +109,38 @@ void print_tetriminos(tetris_t *tetris, node_t *temp)
     }
 }
 
+void sort_by_alpha(char **paths, int line)
+{
+  for (int i = 0; i < line; i++) {
+        for (int j = 0; j < line; j++) {
+            if (paths[j][11] > paths[i][11]) {
+                char *temp = paths[i];
+                paths[i] = paths[j];
+                paths[j] = temp;
+            }
+        }
+    }
+}
+
 void print_debug(tetris_t *tetris)
 {
     struct dirent *lecture;
     DIR *dir;
     struct stat st;
-    head_t *l_b = NULL;
+    int line = 0;
     char *test = "tetriminos/";
     dir = opendir(test);
     while ((lecture = readdir(dir))) {
-        if (lecture->d_name[0] != '.')
-            l_b = get_n_node(my_strcpy(lecture->d_name), l_b); }
-    node_t *temp = l_b->begin;
-    while (temp != NULL) {
-        char* tempo = malloc(sizeof(char) * 1000);
-        my_strcpy2(tempo, test);
-        my_strcat2(tempo, temp->data);
-        tetris->nome = tempo;
-        temp->data = tempo;
-        get_name(tetris);
-        print_tetriminos(tetris, temp);
-        temp = temp->next;
+        if (lecture->d_type == DT_REG) {
+            tetris->paths[line] = my_strdup("tetriminos/");
+            tetris->paths[line] = my_strcat2(tetris->paths[line], lecture->d_name);
+            line++;
+        }
+    }
+    sort_by_alpha(tetris->paths, line);
+    for (int index = 0; index < tetris->number; index++) {
+        get_name(tetris, index);
+        print_tetriminos(tetris, index);
     }
 }
 
@@ -146,6 +157,7 @@ void init_tetris(tetris_t *tetris)
     tetris->next = my_strdup("Yes");
     tetris->level = 1;
     tetris->number = how_many_tetri();
+    tetris->paths = malloc(sizeof(char * ) * tetris->number + 1);
 }
 
 int how_many_tetri(void)

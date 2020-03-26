@@ -37,6 +37,7 @@ typedef struct head_s
 typedef struct tetris {
     char *nome;
     char *name;
+    char **paths;
     int height;
     int weight;
     int color;
