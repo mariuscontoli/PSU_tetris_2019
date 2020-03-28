@@ -50,7 +50,7 @@ void print_debug(tetris_t *tetris)
 void disp_keys(tetris_t *tetris)
 {
     my_printf("Key Left :  %s\n", tetris->key_left);
-    my_printf("Key Right :  %S\n", tetris->key_right);
+    my_printf("Key Right :  %s\n", tetris->key_right);
     my_printf("Key Turn :  %s\n", tetris->key_turn);
     my_printf("Key Drop :  %s\n", tetris->key_drop);
     my_printf("Key Quit :  %s\n", tetris->key_quit);
