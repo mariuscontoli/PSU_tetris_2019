@@ -73,5 +73,6 @@ void sort_by_alpha(char **paths, int line);
 char *my_strcat2(char *dest, char const *src);
 void display_tetri(char *buffer);
 void display_help(char *string);
+int error_handling(char *buffer);
 
 #endif /* !NAVY_H_ */

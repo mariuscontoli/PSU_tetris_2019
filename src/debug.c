@@ -17,7 +17,7 @@ void print_tetriminos(tetris_t *tetris, int index)
     tetri = malloc(sizeof(char) * (off_t.st_size + 1));
     read(fd, tetri, off_t.st_size);
     get_spec(tetris, tetri);
-    if (tetri[0] <= 122 && tetri[0] >= 97) {
+    if (error_handling(tetri) == 84) {
         my_printf("Tetriminos : Name %s : Error\n", tetris->name);
     } else {
         my_printf("Tetriminos : Name %s : Size %d*%d : Color %d :\n",

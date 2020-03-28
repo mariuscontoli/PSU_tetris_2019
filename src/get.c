@@ -30,3 +30,24 @@ void get_name(tetris_t *tetris, int index)
     temp[i] = '\0';
     tetris->name = temp; 
 }
+
+int error_handling(char *buffer)
+{
+    int i = 0;
+    if (buffer[i] < 47 || buffer[i] > 57)
+        return 84;
+    if (buffer[i + 1] != ' ')
+        return 84;
+    if (buffer[i + 2] < 47 || buffer[i + 2] > 57)
+        return 84;
+    if (buffer[i + 3] != ' ')
+        return 84;
+    if (buffer[i + 4] < 47 || buffer[i + 4] > 57)
+        return 84;
+    for (int y = i + 5; buffer[y] != '\0'; y++) {
+        if (buffer[y] != '*' && buffer[y] != ' ' && buffer[y] != '\n') {
+            return 84;
+        }
+    }
+    return 0;
+}
