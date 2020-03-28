@@ -71,7 +71,9 @@ int binding_key(tetris_t *tetris, int ac, char **av)
 {
     int index = 1;
     while (index < ac) {
-        if (av[index][0] == '-' && av[index][1] != 'D') {
+        if (av[index][0 == '-'] && av[index][1] == 'D')
+            index += 1;
+        if (av[index][0] == '-') {
             bind_key(tetris, av, index);
             index += 2;
         }
