@@ -77,11 +77,15 @@ void init_tetris(tetris_t *tetris)
     tetris->paths = malloc(sizeof(char * ) * tetris->number + 1);
 }
 
-void debug(tetris_t *tetris, int ac, char **av)
+int debug(tetris_t *tetris, int ac, char **av)
 {
     init_tetris(tetris);
     my_printf("*** DEBUG MODE ***\n");
+    if (binding_key(tetris, ac, av) == 84) {
+        return 84;
+    }
     disp_keys(tetris);
     print_debug(tetris);
     my_printf("Press any key to start Tetris\n");
+    return (0);
 }

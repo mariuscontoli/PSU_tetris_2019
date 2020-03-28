@@ -51,3 +51,30 @@ int error_handling(char *buffer)
     }
     return 0;
 }
+
+int bind_key(tetris_t *tetris, char **av, int index)
+{
+    if (av[index][1] == 'd')
+        tetris->key_drop = my_strdup(av[index + 1]);
+    if (av[index][1] == 'r')
+        tetris->key_right = my_strdup(av[index + 1]);
+    if (av[index][1] == 'l')
+        tetris->key_left = my_strdup(av[index + 1]);
+    if (av[index][1] == 't')
+        tetris->key_turn = my_strdup(av[index + 1]);
+    if (av[index][1] == 'p')
+        tetris->key_pause = my_strdup(av[index + 1]);
+    return 0;
+}
+
+int binding_key(tetris_t *tetris, int ac, char **av)
+{
+    int index = 1;
+    while (index < ac) {
+        if (av[index][0] == '-' && av[index][1] != 'D') {
+            bind_key(tetris, av, index);
+            index += 2;
+        }
+    }
+    return (0);
+}

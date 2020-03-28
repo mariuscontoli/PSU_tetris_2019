@@ -64,7 +64,9 @@ int main(int ac, char *argv[])
     if (ac == 2 && argv[1][0] == '-' && argv[1][1] == '-' && argv[1][2] == 'h') {
             display_help(argv[0]);
     } else if (ac > 1) {
-        debug(tetris, ac, argv);
+        if (debug(tetris, ac, argv) == 84) {
+            return 84;
+        }
     }
     return (0);
 }

@@ -61,7 +61,7 @@ char *my_strnto_name(char *dest);
 int my_strlen2(char const *str);
 int my_strlen(char const *str);
 int my_strcmp(char const *s1, char const *s2);
-void debug(tetris_t *tetris, int ac, char **av);
+int debug(tetris_t *tetris, int ac, char **av);
 void init_tetris(tetris_t *tetris);
 void disp_keys(tetris_t *tetris);
 void print_debug(tetris_t *tetris);
@@ -74,5 +74,7 @@ char *my_strcat2(char *dest, char const *src);
 void display_tetri(char *buffer);
 void display_help(char *string);
 int error_handling(char *buffer);
+int binding_key(tetris_t *tetris, int ac, char **av);
+int bind_key(tetris_t *tetris, char **av, int index);
 
 #endif /* !NAVY_H_ */
