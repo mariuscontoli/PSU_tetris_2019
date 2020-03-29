@@ -9,10 +9,9 @@
 
 char *my_strcpy(char *dest, char const *src)
 {
-    int copy, i, y = 0;
-    for(; src[i] != '='; i++);
-    copy = i + 1;
-    while(src[copy] != ',') {
+    int copy, y = 0;
+    copy = 11;
+    while(src[copy] <= '9' && src[copy] >= '0') {
         dest[y] = src[copy];
         copy++;
         y++;
@@ -23,9 +22,11 @@ char *my_strcpy(char *dest, char const *src)
 
 char *my_strcpy2(char *dest, char const *src)
 {
-    int copy, i, y = 0;
-    for(; src[i] != ','; i++);
-    copy = i + 1;
+    int copy, y = 0;
+    copy = 11;
+    while (src[copy] <= '9' && src[copy] >= '0')
+        copy = copy + 1;
+    copy = copy + 1;
     while(src[copy] != '\0') {
         dest[y] = src[copy];
         copy++;
