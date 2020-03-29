@@ -54,39 +54,43 @@ int error_handling(char *buffer)
 
 int bind_key(tetris_t *tetris, char **av, int index)
 {
-    if (my_strlen(av[index + 1]) != 1)
-        return 84;
-    if (av[index][1] == 'd' && av[index + 1] != NULL)
-        tetris->key_drop = my_strdup(av[index + 1]);
-    if (av[index][1] == 'r' && av[index + 1] != NULL)
-        tetris->key_right = my_strdup(av[index + 1]);
-    if (av[index][1] == 'l' && av[index + 1] != NULL)
-        tetris->key_left = my_strdup(av[index + 1]);
-    if (av[index][1] == 't' && av[index + 1] != NULL)
-        tetris->key_turn = my_strdup(av[index + 1]);
-    if (av[index][1] == 'p' && av[index + 1] != NULL)
-        tetris->key_pause = my_strdup(av[index + 1]);
-    if (av[index][1] == 'L' && av[index + 1] != NULL)
-        tetris->level = my_strdup(av[index + 1]);
     if (av[index][1] == 'w')
         tetris->next = my_strdup("No");
+    if (av[index + 1] != NULL) {
+        if (my_strlen(av[index + 1]) != 1) {
+            return 84;
+        }
+        if (av[index][1] == 'd')
+            tetris->key_drop = my_strdup(av[index + 1]);
+        if (av[index][1] == 'r')
+            tetris->key_right = my_strdup(av[index + 1]);
+        if (av[index][1] == 'l')
+            tetris->key_left = my_strdup(av[index + 1]);
+        if (av[index][1] == 't')
+            tetris->key_turn = my_strdup(av[index + 1]);
+        if (av[index][1] == 'p')
+            tetris->key_pause = my_strdup(av[index + 1]);
+        if (av[index][1] == 'L')
+            tetris->level = my_strdup(av[index + 1]);
+    } else {
+        return 84;
+    }
     return 0;
 }
 
 int binding_key(tetris_t *tetris, int ac, char **av)
 {
     int index = 1;
-    if (av[index][0 == '-'] && av[index][1] == 'D')
+    if (av[index][0] == '-' && av[index][1] == 'D')
         index += 1;
     while (index < ac) {
-        if (av[index][0 == '-'] && av[index][1] == 'D')
+        if (av[index][0] == '-' && av[index][1] == 'D')
             index += 1;
         if (index < ac) {
-            if (av[index][0] == '-' && av[index + 1] != NULL) {
-                bind_key(tetris, av, index);
+            if (av[index][0] == '-') {
+                if (bind_key(tetris, av, index) == 84)
+                    return 84;
                 index += 2;
-            } else {
-                return 84;
             }
         }
     }

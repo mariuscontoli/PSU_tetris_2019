@@ -76,5 +76,6 @@ void display_help(char *string);
 int error_handling(char *buffer);
 int binding_key(tetris_t *tetris, int ac, char **av);
 int bind_key(tetris_t *tetris, char **av, int index);
+int my_strcmp(char const *s1, char const *s2);
 
 #endif /* !NAVY_H_ */
