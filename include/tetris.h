@@ -10,7 +10,8 @@
 
 #include <curses.h>
 #include <bits/types.h>
-#include <termios.h>
+#include <sys/ioctl.h>
+#include <dirent.h>
 
 #include <stdio.h>
 #include <unistd.h>
@@ -88,7 +89,7 @@ int binding_key(tetris_t *tetris, int ac, char **av);
 int bind_key(tetris_t *tetris, char **av, int index);
 int my_strcmp(char const *s1, char const *s2);
 
-char **create_map();
+char **create_map(tetris_t *tetris);
 char **char_to_charr(char *file, int w, int nbtt);
 char **display_map(char **map);
 char **cloc(char **map);

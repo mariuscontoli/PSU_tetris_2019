@@ -6,6 +6,7 @@
 */
 
 #include "../include/tetris.h"
+#include <termios.h>
 
 void print_tetriminos(tetris_t *tetris, int index)
 {
@@ -77,16 +78,34 @@ void init_tetris(tetris_t *tetris)
     tetris->paths = malloc(sizeof(char * ) * tetris->number + 1);
 }
 
+void set_canonic(int i)
+{
+    static struct termios	oldT;
+    static struct termios	newT;
+
+    if (i == 1)
+    {
+        ioctl(0, TCGETS, &oldT);
+        ioctl(0, TCGETS, &newT);
+        newT.c_lflag &= ~ECHO;
+        newT.c_lflag &= ~ICANON;
+        newT.c_cc[VMIN] = 1;
+        newT.c_cc[VTIME] = 0;
+        ioctl(0, TCSETS, &newT);
+    }
+    else if (i == 2)
+    {
+        newT.c_cc[VMIN] = 0;
+        newT.c_cc[VTIME] = 0;
+        ioctl(0, TCSETS, &newT);
+    }
+    else
+    ioctl(0, TCSETS, &oldT);
+}
+
 int debug(tetris_t *tetris, int ac, char **av)
 {
-    struct termios old;
-    struct termios new;
-    tcgetattr(0, &new);
-    new.c_lflag &= ~ECHO;
-    new.c_lflag &= ~ICANON;
-    new.c_cc[VMIN] = 1;
-    new.c_cc[VTIME] = 0;
-    tcsetattr(0, TCSANOW, &new);
+    set_canonic(1);
     init_tetris(tetris);
     if (binding_key(tetris, ac, av) == 84)
         return 84;
@@ -95,6 +114,7 @@ int debug(tetris_t *tetris, int ac, char **av)
     print_debug(tetris);
     my_printf("Press any key to start Tetris");
     getchar();
-    tcsetattr(0, TCSANOW, &old);
+    set_canonic(2);
     create_map(tetris);
+    return 0;
 }
