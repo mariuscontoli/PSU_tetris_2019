@@ -52,12 +52,15 @@ int error_handling(char *buffer)
     return 0;
 }
 
-int bind_key(tetris_t *tetris, char **av, int index)
+int cases(tetris_t *tetris, char **av, int index)
 {
+    int o = 0;
+    if (cases2(tetris, av, index) == 0)
+        return 1;
     if (av[index + 1] != NULL) {
-        if (my_strlen(av[index + 1]) != 1) {
+        for(o = 0; av[index + 1][o]; o++);
+        if (o != 1)
             return 84;
-        }
         if (av[index][1] == 'd')
             tetris->key_drop = my_strdup(av[index + 1]);
         if (av[index][1] == 'r')
@@ -73,33 +76,61 @@ int bind_key(tetris_t *tetris, char **av, int index)
     } else {
         return 84;
     }
-    return 0;
+    return 2;
+}
+
+int cases2(tetris_t *tetris, char **av, int index)
+{
+    if (av[index][1] == 'w') {
+        tetris->next = my_strdup("No");
+        return 0;
+    }
+    if (my_strncmp(av[index], "--map-size=", 11) == 0) {
+        set_map_size(tetris, av[index]);
+        return 0;
+    }
+    if (av[index][1] == 'D') {
+        return 0;
+    }
+    return 1;
+}
+
+void set_map_size(tetris_t *tetris, char *buffer)
+{
+    char *x = malloc(sizeof(char) * 3);
+    char *y = malloc(sizeof(char) * 3);
+    x = my_strcpy(x, buffer);
+    y = my_strcpy2(y, buffer);
+    tetris->size_x = my_getnbr(y);
+    tetris->size_y = my_getnbr(x);
+}
+
+
+int bind_key(tetris_t *tetris, char **av, int index)
+{
+    int condition = 0;
+    condition = cases(tetris, av, index);
+    if (condition == 1)
+        return 1;
+    if (condition == 2)
+        return 0;
+    if (condition == 84)
+        return 84;
 }
 
 int binding_key(tetris_t *tetris, int ac, char **av)
 {
     int index = 1;
-    if (av[index][0] == '-' && av[index][1] == 'D')
-        index += 1;
+    int condition = 0;
     while (index < ac) {
-        if (av[index][0] == '-' && av[index][1] == 'D')
-            index += 1;
-        if (index < ac) {
-            if (av[index][0] == '-') {
-                if (av[index][1] == 'w') {
-                    tetris->next = my_strdup("No");
-                    index += 1;
-                }
-                if (av[index][0] == '-' && av[index][1] == 'D')
-                        index += 1;
-                if (index < ac) {
-                    if (bind_key(tetris, av, index) != 84) {
-                        index += 2;
-                    } else {
-                        return 84;
-                    }
-                }
-            }
+        if (av[index][0] == '-') {
+            condition = bind_key(tetris, av, index);
+            if (condition == 0)
+                index += 2;
+            if (condition == 1)
+                index += 1;
+            if (condition == 84)
+                return 84;
         }
     }
     return (0);
