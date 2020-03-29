@@ -38,7 +38,7 @@ int cases(tetris_t *tetris, char **av, int index)
         return 1;
     if (av[index + 1] != NULL) {
         for(o = 0; av[index + 1][o]; o++);
-        if (o != 1)
+        if (o != 1 && av[index][1] != 'L')
             return 84;
         if (av[index][1] == 'd')
             tetris->key_drop = my_strdup(av[index + 1]);
