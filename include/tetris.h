@@ -92,11 +92,12 @@ char *my_strcpy2(char *dest, char const *src);
 int cases2(tetris_t *tetris, char **av, int index);
 void set_map_size(tetris_t *tetris, char *buffer);
 void create_map(tetris_t *tetris);
-void char_to_charr(char *file, int w, int nbtt);
-int display_map(char **map);
-void cloc(char **map);
-void print_map(t_game *game);
-void type(char **map, t_game *game, time_t *start);
+void char_to_charr(char *file, int w, int nbtt,tetris_t *tetris);
+int display_map(char **map, tetris_t *tetris);
+void cloc(char **map,tetris_t *tetris);
+
+void print_map(t_game *game,tetris_t *tetris);
+void type(char **map, t_game *game, time_t *start,tetris_t *tetris);
 int cases(tetris_t *tetris, char **av, int index);
 void change_term(int i);
 void getTime(t_game *game, time_t *start);
