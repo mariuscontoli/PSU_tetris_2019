@@ -54,8 +54,6 @@ int error_handling(char *buffer)
 
 int bind_key(tetris_t *tetris, char **av, int index)
 {
-    if (av[index][1] == 'w')
-        tetris->next = my_strdup("No");
     if (av[index + 1] != NULL) {
         if (my_strlen(av[index + 1]) != 1) {
             return 84;
@@ -88,9 +86,17 @@ int binding_key(tetris_t *tetris, int ac, char **av)
             index += 1;
         if (index < ac) {
             if (av[index][0] == '-') {
-                if (bind_key(tetris, av, index) == 84)
-                    return 84;
-                index += 2;
+                if (av[index][1] == 'w') {
+                    tetris->next = my_strdup("No");
+                    index += 1;
+                }
+                if (index < ac) {
+                    if (bind_key(tetris, av, index) != 84) {
+                        index += 2;
+                    } else {
+                        return 84;
+                    }
+                }
             }
         }
     }
