@@ -36,6 +36,19 @@ char *my_strcpy2(char *dest, char const *src)
     return dest;
 }
 
+char *my_strncpy(char *dest, char const *src, int n)
+{
+    int copy, y = 0;
+    copy = n;
+    while(src[copy] <= '9' && src[copy] >= '0') {
+        dest[y] = src[copy];
+        copy++;
+        y++;
+    }
+    dest[y] = '\0';
+    return dest;
+}
+
 int my_strncmp(char const *s1, char const *s2, int n)
 {
     const char *c1 = s1;

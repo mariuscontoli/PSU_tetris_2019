@@ -7,6 +7,13 @@
 
 #include "../include/tetris.h"
 
+void set_level(tetris_t *tetris, char *buffer)
+{
+    char *lev = malloc(sizeof(char) * 4);
+    lev = my_strncpy(lev, buffer, 8);
+    tetris->level = my_strdup(lev);
+}
+
 void set_map_size(tetris_t *tetris, char *buffer)
 {
     char *x = malloc(sizeof(char) * 4 + 1);
