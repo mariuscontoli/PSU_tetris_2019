@@ -90,6 +90,8 @@ int binding_key(tetris_t *tetris, int ac, char **av)
                     tetris->next = my_strdup("No");
                     index += 1;
                 }
+                if (av[index][0] == '-' && av[index][1] == 'D')
+                        index += 1;
                 if (index < ac) {
                     if (bind_key(tetris, av, index) != 84) {
                         index += 2;
