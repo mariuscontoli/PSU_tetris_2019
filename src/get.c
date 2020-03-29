@@ -89,7 +89,11 @@ int cases2(tetris_t *tetris, char **av, int index)
         set_map_size(tetris, av[index]);
         return 0;
     }
-    if (av[index][1] == 'D') {
+    if (my_strncmp(av[index], "--level=", 8) == 0) {
+        set_level(tetris, av[index]);
+        return 0;
+    }
+    if (av[index][1] == 'D' || my_strncmp(av[index], "--debug", 7) == 0) {
         return 0;
     }
     return 1;

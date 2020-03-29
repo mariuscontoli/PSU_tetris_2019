@@ -66,7 +66,7 @@ int main(int ac, char *argv[])
             display_help(argv[0]);
     } else if (ac > 1) {
         for (int i = 1; i < ac; i++) {
-            if (argv[1][0] == '-' && argv[i][1] == 'D')
+            if ((argv[i][0] == '-' && argv[i][1] == 'D') || my_strncmp(argv[i], "--debug", 7) == 0)
                 debuger = 1;
         }
         if (debuger == 1) {
