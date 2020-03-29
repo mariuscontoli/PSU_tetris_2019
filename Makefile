@@ -18,7 +18,7 @@ CFLAGS  +=      -I./include
 all     :       $(NAME)
 
 $(NAME) :       $(OBJ)
-				gcc -o $(NAME) $(OBJ)
+				gcc -o $(NAME) $(OBJ) -lncurses
 
 clean   :
 				find . -name "*.o" -type f -delete

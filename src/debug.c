@@ -79,12 +79,22 @@ void init_tetris(tetris_t *tetris)
 
 int debug(tetris_t *tetris, int ac, char **av)
 {
+    struct termios old;
+    struct termios new;
+    tcgetattr(0, &new);
+    new.c_lflag &= ~ECHO;
+    new.c_lflag &= ~ICANON;
+    new.c_cc[VMIN] = 1;
+    new.c_cc[VTIME] = 0;
+    tcsetattr(0, TCSANOW, &new);
     init_tetris(tetris);
     if (binding_key(tetris, ac, av) == 84)
         return 84;
     my_printf("*** DEBUG MODE ***\n");
     disp_keys(tetris);
     print_debug(tetris);
-    my_printf("Press any key to start Tetris\n");
-    return (0);
+    my_printf("Press any key to start Tetris");
+    getchar();
+    tcsetattr(0, TCSANOW, &old);
+    create_map(tetris);
 }
