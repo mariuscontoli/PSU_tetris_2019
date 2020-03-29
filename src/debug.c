@@ -80,10 +80,9 @@ void init_tetris(tetris_t *tetris)
 int debug(tetris_t *tetris, int ac, char **av)
 {
     init_tetris(tetris);
-    my_printf("*** DEBUG MODE ***\n");
-    if (binding_key(tetris, ac, av) == 84) {
+    if (binding_key(tetris, ac, av) == 84)
         return 84;
-    }
+    my_printf("*** DEBUG MODE ***\n");
     disp_keys(tetris);
     print_debug(tetris);
     my_printf("Press any key to start Tetris\n");

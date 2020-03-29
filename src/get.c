@@ -54,6 +54,8 @@ int error_handling(char *buffer)
 
 int bind_key(tetris_t *tetris, char **av, int index)
 {
+    if (my_strlen(av[index + 1]) != 1)
+        return 84;
     if (av[index][1] == 'd' && av[index + 1] != NULL)
         tetris->key_drop = my_strdup(av[index + 1]);
     if (av[index][1] == 'r' && av[index + 1] != NULL)
@@ -80,9 +82,11 @@ int binding_key(tetris_t *tetris, int ac, char **av)
         if (av[index][0 == '-'] && av[index][1] == 'D')
             index += 1;
         if (index < ac) {
-            if (av[index][0] == '-') {
+            if (av[index][0] == '-' && av[index + 1] != NULL) {
                 bind_key(tetris, av, index);
                 index += 2;
+            } else {
+                return 84;
             }
         }
     }
