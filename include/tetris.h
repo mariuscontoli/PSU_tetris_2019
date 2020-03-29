@@ -89,15 +89,15 @@ int bind_key(tetris_t *tetris, char **av, int index);
 int my_strncmp(char const *s1, char const *s2, int n);
 char *my_strcpy(char *dest, char const *src);
 char *my_strcpy2(char *dest, char const *src);
-
-char **create_map(tetris_t *tetris);
-char **char_to_charr(char *file, int w, int nbtt);
-char **display_map(char **map);
-char **cloc(char **map);
+int cases2(tetris_t *tetris, char **av, int index);
+void set_map_size(tetris_t *tetris, char *buffer);
+void create_map(tetris_t *tetris);
+void char_to_charr(char *file, int w, int nbtt);
+int display_map(char **map);
+void cloc(char **map);
 void print_map(t_game *game);
 void type(char **map, t_game *game, time_t *start);
-
-
+int cases(tetris_t *tetris, char **av, int index);
 void change_term(int i);
 void getTime(t_game *game, time_t *start);
 

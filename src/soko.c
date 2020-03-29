@@ -7,15 +7,14 @@
 
 #include "../include/tetris.h"
 
-char **cloc(char **map)
+void cloc(char **map)
 {
     t_game *game = malloc(sizeof(t_game));
     time_t *start = NULL;
     game->min = 0;
     game->sec = 0;
     int c = 0;
-    int on_o = 0;
-    for (int compt_move = 1, *ptr = &on_o; c != 27; compt_move++, game->sec++) {
+    for (int compt_move = 1; c != 27; compt_move++, game->sec++) {
         type(map, game, start);
         c = getch();
     }

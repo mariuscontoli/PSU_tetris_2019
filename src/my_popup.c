@@ -7,7 +7,7 @@
 
 #include "../include/tetris.h"
 
-char **display_map(char **map)
+int display_map(char **map)
 {
     initscr();
     curs_set(FALSE);
@@ -19,7 +19,7 @@ char **display_map(char **map)
     return 0;
 }
 
-char **char_to_charr(char *file, int w, int nbtt)
+void char_to_charr(char *file, int w, int nbtt)
 {
     int i = 0, j = 0, z = 0;
     char **map = malloc(sizeof(char *) * (w + 1));
@@ -43,7 +43,7 @@ char **char_to_charr(char *file, int w, int nbtt)
     display_map(map);
 }
 
-char **create_map(tetris_t *tetris)
+void create_map(tetris_t *tetris)
 {
     int y = 0;
     int w = 1;
