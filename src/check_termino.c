@@ -62,11 +62,13 @@ int main(int ac, char *argv[])
 {
     tetris_t *tetris = malloc(sizeof(*tetris));
     int debuger = 0;
-    if (ac == 2 && argv[1][0] == '-' && argv[1][1] == '-' && argv[1][2] == 'h') {
-            display_help(argv[0]);
+    if (ac == 2 && argv[1][0] == '-' && argv[1][1] == '-' && 
+        argv[1][2] == 'h') {
+        display_help(argv[0]);
     } else if (ac > 1) {
         for (int i = 1; i < ac; i++) {
-            if ((argv[i][0] == '-' && argv[i][1] == 'D') || my_strncmp(argv[i], "--debug", 7) == 0)
+            if ((argv[i][0] == '-' && argv[i][1] == 'D') || my_strncmp(argv[i],
+            "--debug", 7) == 0)
                 debuger = 1;
         }
         if (debuger == 1) {

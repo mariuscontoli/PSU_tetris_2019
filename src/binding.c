@@ -7,6 +7,13 @@
 
 #include "../include/tetris.h"
 
+void set_key_pause(tetris_t *tetris, char *buffer)
+{
+    char *key = malloc(sizeof(char) * 10);
+    key = my_strncpy2(key, buffer, 12);
+    tetris->key_pause = my_strdup(key);
+}
+
 void set_level(tetris_t *tetris, char *buffer)
 {
     char *lev = malloc(sizeof(char) * 4);
@@ -34,6 +41,7 @@ int bind_key(tetris_t *tetris, char **av, int index)
         return 0;
     if (condition == 84)
         return 84;
+    return 666;
 }
 
 int binding_key(tetris_t *tetris, int ac, char **av)

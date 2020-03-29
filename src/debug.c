@@ -37,7 +37,8 @@ void print_debug(tetris_t *tetris)
     while ((lecture = readdir(dir))) {
         if (lecture->d_type == DT_REG) {
             tetris->paths[line] = my_strdup("tetriminos/");
-            tetris->paths[line] = my_strcat2(tetris->paths[line], lecture->d_name);
+            tetris->paths[line] = my_strcat2(tetris->paths[line],
+            lecture->d_name);
             line++;
         }
     }
@@ -60,22 +61,6 @@ void disp_keys(tetris_t *tetris)
     my_printf("Level :  %s\n", tetris->level);
     my_printf("Size :  %d*%d\n", tetris->size_y, tetris->size_x);
     my_printf("Tetriminos : %d\n", tetris->number);
-}
-
-void init_tetris(tetris_t *tetris)
-{
-    tetris->key_right = my_strdup("^EOC");
-    tetris->key_left = my_strdup("^EOD");
-    tetris->key_drop = my_strdup("^EOA");
-    tetris->key_turn = my_strdup("^EOB");
-    tetris->key_pause = my_strdup("p");
-    tetris->key_quit = my_strdup("q");
-    tetris->size_y = 20;
-    tetris->size_x = 10;
-    tetris->next = my_strdup("Yes");
-    tetris->level = my_strdup("1");
-    tetris->number = how_many_tetri();
-    tetris->paths = malloc(sizeof(char * ) * tetris->number + 1);
 }
 
 void change_term(int a)
