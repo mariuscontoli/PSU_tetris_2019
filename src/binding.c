@@ -9,8 +9,8 @@
 
 void set_map_size(tetris_t *tetris, char *buffer)
 {
-    char *x = malloc(sizeof(char) * 3 + 1);
-    char *y = malloc(sizeof(char) * 3 + 1);
+    char *x = malloc(sizeof(char) * 4 + 1);
+    char *y = malloc(sizeof(char) * 4 + 1);
     x = my_strcpy(x, buffer);
     y = my_strcpy2(y, buffer);
     tetris->size_x = my_getnbr(y);
