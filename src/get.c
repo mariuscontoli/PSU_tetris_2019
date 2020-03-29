@@ -54,16 +54,20 @@ int error_handling(char *buffer)
 
 int bind_key(tetris_t *tetris, char **av, int index)
 {
-    if (av[index][1] == 'd')
+    if (av[index][1] == 'd' && av[index + 1] != NULL)
         tetris->key_drop = my_strdup(av[index + 1]);
-    if (av[index][1] == 'r')
+    if (av[index][1] == 'r' && av[index + 1] != NULL)
         tetris->key_right = my_strdup(av[index + 1]);
-    if (av[index][1] == 'l')
+    if (av[index][1] == 'l' && av[index + 1] != NULL)
         tetris->key_left = my_strdup(av[index + 1]);
-    if (av[index][1] == 't')
+    if (av[index][1] == 't' && av[index + 1] != NULL)
         tetris->key_turn = my_strdup(av[index + 1]);
-    if (av[index][1] == 'p')
+    if (av[index][1] == 'p' && av[index + 1] != NULL)
         tetris->key_pause = my_strdup(av[index + 1]);
+    if (av[index][1] == 'L' && av[index + 1] != NULL)
+        tetris->level = my_strdup(av[index + 1]);
+    if (av[index][1] == 'w')
+        tetris->next = my_strdup("No");
     return 0;
 }
 
@@ -75,9 +79,11 @@ int binding_key(tetris_t *tetris, int ac, char **av)
     while (index < ac) {
         if (av[index][0 == '-'] && av[index][1] == 'D')
             index += 1;
-        if (av[index][0] == '-') {
-            bind_key(tetris, av, index);
-            index += 2;
+        if (index < ac) {
+            if (av[index][0] == '-') {
+                bind_key(tetris, av, index);
+                index += 2;
+            }
         }
     }
     return (0);

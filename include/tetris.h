@@ -48,7 +48,7 @@ typedef struct tetris {
     char *key_drop;
     char *key_quit;
     char *key_pause;
-    int level;
+    char *level;
     char *next;
     int size_x;
     int size_y;

@@ -56,7 +56,7 @@ void disp_keys(tetris_t *tetris)
     my_printf("Key Quit :  %s\n", tetris->key_quit);
     my_printf("Key Pause :  %s\n", tetris->key_pause);
     my_printf("Next :  %s\n", tetris->next);
-    my_printf("Level :  %d\n", tetris->level);
+    my_printf("Level :  %s\n", tetris->level);
     my_printf("Size :  %d*%d\n", tetris->size_y, tetris->size_x);
     my_printf("Tetriminos : %d\n", tetris->number);
 }
@@ -72,7 +72,7 @@ void init_tetris(tetris_t *tetris)
     tetris->size_y = 20;
     tetris->size_x = 10;
     tetris->next = my_strdup("Yes");
-    tetris->level = 1;
+    tetris->level = my_strdup("1");
     tetris->number = how_many_tetri();
     tetris->paths = malloc(sizeof(char * ) * tetris->number + 1);
 }
