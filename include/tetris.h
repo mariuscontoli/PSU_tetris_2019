@@ -11,7 +11,6 @@
 #include <curses.h>
 #include <bits/types.h>
 #include <sys/ioctl.h>
-#include <dirent.h>
 
 #include <stdio.h>
 #include <unistd.h>
@@ -95,5 +94,9 @@ char **display_map(char **map);
 char **cloc(char **map);
 void print_map(t_game *game);
 void type(char **map, t_game *game, time_t *start);
+
+
+void change_term(int i);
+void getTime(t_game *game, time_t *start);
 
 #endif /* !NAVY_H_ */

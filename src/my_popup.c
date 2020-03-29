@@ -13,6 +13,7 @@ char **display_map(char **map)
     curs_set(FALSE);
     keypad(stdscr, TRUE);
     noecho();
+    change_term(1);
     cloc(map);
     endwin();
     return 0;
