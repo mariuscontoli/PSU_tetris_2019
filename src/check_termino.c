@@ -32,7 +32,7 @@ char *my_strcat2(char *dest, char const *src)
 
 void sort_by_alpha(char **paths, int line)
 {
-  for (int i = 0; i < line; i++) {
+    for (int i = 0; i < line; i++) {
         for (int j = 0; j < line; j++) {
             if (paths[j][11] > paths[i][11]) {
                 char *temp = paths[i];

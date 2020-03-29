@@ -57,6 +57,8 @@ int binding_key(tetris_t *tetris, int ac, char **av)
                 index += 1;
             if (condition == 84)
                 return 84;
+        } else {
+            return 84;
         }
     }
     return (0);
