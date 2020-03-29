@@ -6,6 +6,7 @@
 */
 
 #include "../include/tetris.h"
+#include <termios.h>
 
 void print_tetriminos(tetris_t *tetris, int index)
 {
@@ -77,14 +78,43 @@ void init_tetris(tetris_t *tetris)
     tetris->paths = malloc(sizeof(char * ) * tetris->number + 1);
 }
 
+void change_term(int a)
+{
+    static struct termios old;
+    static struct termios nw;
+
+    if (a == 0)
+    {
+        ioctl(0, TCGETS, &old);
+        ioctl(0, TCGETS, &nw);
+        nw.c_lflag &= ~ECHO;
+        nw.c_lflag &= ~ICANON;
+        nw.c_cc[VMIN] = 1;
+        nw.c_cc[VTIME] = 0;
+        ioctl(0, TCSETS, &nw);
+    }
+    else if (a == 1)
+    {
+        nw.c_cc[VMIN] = 0;
+        nw.c_cc[VTIME] = 0;
+        ioctl(0, TCSETS, &nw);
+    }
+    else
+    ioctl(0, TCSETS, &old);
+}
+
 int debug(tetris_t *tetris, int ac, char **av)
 {
+    change_term(0);
     init_tetris(tetris);
     if (binding_key(tetris, ac, av) == 84)
         return 84;
     my_printf("*** DEBUG MODE ***\n");
     disp_keys(tetris);
     print_debug(tetris);
-    my_printf("Press any key to start Tetris\n");
-    return (0);
+    my_printf("Press any key to start Tetris");
+    getchar();
+    change_term(2);
+    create_map(tetris);
+    return 0;
 }

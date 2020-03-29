@@ -8,6 +8,10 @@
 #ifndef TETRIS_H_
 #define TETRIS_H_
 
+#include <curses.h>
+#include <bits/types.h>
+#include <sys/ioctl.h>
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -54,6 +58,12 @@ typedef struct tetris {
     int size_y;
 } tetris_t;
 
+typedef struct	s_game
+{
+    int sec;
+    int min;
+} t_game;
+
 int my_getnbr(char *str);
 char *my_strdup(char const *src);
 int my_atoi(char c);
@@ -79,5 +89,16 @@ int bind_key(tetris_t *tetris, char **av, int index);
 int my_strncmp(char const *s1, char const *s2, int n);
 char *my_strcpy(char *dest, char const *src);
 char *my_strcpy2(char *dest, char const *src);
+
+char **create_map(tetris_t *tetris);
+char **char_to_charr(char *file, int w, int nbtt);
+char **display_map(char **map);
+char **cloc(char **map);
+void print_map(t_game *game);
+void type(char **map, t_game *game, time_t *start);
+
+
+void change_term(int i);
+void getTime(t_game *game, time_t *start);
 
 #endif /* !NAVY_H_ */
