@@ -9,14 +9,13 @@
 
 void set_map_size(tetris_t *tetris, char *buffer)
 {
-    char *x = malloc(sizeof(char) * 3);
-    char *y = malloc(sizeof(char) * 3);
+    char *x = malloc(sizeof(char) * 3 + 1);
+    char *y = malloc(sizeof(char) * 3 + 1);
     x = my_strcpy(x, buffer);
     y = my_strcpy2(y, buffer);
     tetris->size_x = my_getnbr(y);
     tetris->size_y = my_getnbr(x);
 }
-
 
 int bind_key(tetris_t *tetris, char **av, int index)
 {
